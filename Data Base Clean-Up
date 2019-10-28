@@ -1,0 +1,23 @@
+-- Code for finding name length that are too long, or have an error in them.
+
+SELECT * FROM [DSTRAINING].[dbo].[Clean-up 2]
+WHERE LEN([Last Name]) > 20
+ORDER BY [Last Name] ASC
+
+-- 4 names, 2 errors based on unknown characters, 1 includes middle name, 1 simply a very long name
+//
+-- Finding duplicate names that need to be manually merged in Hubspot
+
+SELECT [First Name], [Last Name]
+FROM [DSTRAINING].[dbo].[Clean-up 2]
+GROUP BY [First Name], [Last Name]
+HAVING COUNT(*) > 1
+
+-- Result is 31 duplicate contacts from a list of 1,420 
+//
+-- Find Contacts that have missing emails
+
+SELECT * FROM [DSTRAINING].[dbo].[Clean-up 2]
+WHERE [Email] = ' '
+
+-- 16 missing emails with contacts 
